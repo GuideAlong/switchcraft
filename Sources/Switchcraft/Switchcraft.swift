@@ -396,7 +396,11 @@ public class Switchcraft {
         let defaultGesture = UITapGestureRecognizer(target: self, action: #selector(tapHandler(_:)))
 
         // Change default tap behaviour if running on the simulator to use a single tap
-        let isSimulator = TARGET_OS_SIMULATOR != 0
+#if targetEnvironment(simulator)
+        let isSimulator = true
+#else
+        let isSimulator = false
+#endif
         defaultGesture.numberOfTapsRequired = isSimulator ? 1 : 2
         defaultGesture.numberOfTouchesRequired = isSimulator ? 1 : 3
         return defaultGesture
